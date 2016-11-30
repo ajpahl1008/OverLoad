@@ -17,21 +17,21 @@ public class SyntheticTransactionEngine implements Runnable {
     static Logger log = LogManager.getLogger(SyntheticTransactionEngine.class);
     private Properties properties = new Properties();
     private int transactionCount;
+    private int simulatedDelayTime;
     private String client;
     private String syntheticServiceCalled;
     private Transporter transporter;
     private ArrayList<String> transactions = new ArrayList();
     private ArrayList<String> clients = new ArrayList();
 
-   
-    public SyntheticTransactionEngine(int transactionCount,String client, String syntheticServiceCalled) throws Exception {
+    public SyntheticTransactionEngine(int transactionCount,int simulatedDelayTime, String client, String syntheticServiceCalled) throws Exception {
         this.transactionCount = transactionCount;
+        this.simulatedDelayTime = simulatedDelayTime;
         this.client = client;
         this.syntheticServiceCalled = syntheticServiceCalled;
         this.loadProperties();
         this.loadClients();
         this.loadTransactions();
-        
     }
 
     private void loadProperties() throws IOException {
@@ -61,15 +61,14 @@ public class SyntheticTransactionEngine implements Runnable {
             Date date = new Date();
 
             if(this.client == null) {
-                this.client = (String) this.clients.get(randomNumber.nextInt(this.clients.size()));
+                this.client = this.clients.get(randomNumber.nextInt(this.clients.size()));
             }
 
             if (this.syntheticServiceCalled == null) {
-                this.syntheticServiceCalled = (String) this.transactions.get(randomNumber.nextInt(this.transactions.size()));
+                this.syntheticServiceCalled = this.transactions.get(randomNumber.nextInt(this.transactions.size()));
             }
 
             JsonObject jsonPayLoad = Json.createObjectBuilder().add("TransactionTime",(new Timestamp(date.getTime())).toString())
-
                                                                .add("TransactionDuration",(randomNumber.nextInt(150)))
                                                                .add("Client",this.client)
                                                                .add("TransactionCalled",this.syntheticServiceCalled)
@@ -78,7 +77,11 @@ public class SyntheticTransactionEngine implements Runnable {
             log.info(jsonPayLoad.toString());
             this.transporter.sendPayLoad(jsonPayLoad);
             this.transporter.flushTransporter();
-            //
+            try {
+                Thread.sleep(simulatedDelayTime);
+            } catch (Exception e) {
+                if (log.isDebugEnabled()) {e.printStackTrace();}
+            }
         }
 
     }

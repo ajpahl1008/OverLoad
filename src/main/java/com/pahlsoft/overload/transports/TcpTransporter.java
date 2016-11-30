@@ -57,7 +57,6 @@ public class TcpTransporter implements Transporter {
     public void flushTransporter() {
         try {
             this.dataOutputStream.flush();
-            this.dataOutputStream.close();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
