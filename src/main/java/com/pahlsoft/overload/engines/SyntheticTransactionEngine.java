@@ -71,11 +71,10 @@ public class SyntheticTransactionEngine implements Runnable {
                                                                .add("transaction_client",this.client)
                                                                .add("transaction_called",this.syntheticServiceCalled)
                                                                .build();
-
-            log.info(jsonPayLoad.toString());
-            this.transporter.sendPayLoad(jsonPayLoad);
-            this.transporter.flushTransporter();
             try {
+                log.info(jsonPayLoad.toString());
+                this.transporter.sendPayLoad(jsonPayLoad);
+                this.transporter.flushTransporter();
                 Thread.sleep(simulatedDelayTime);
             } catch (Exception e) {
                 if (log.isDebugEnabled()) {e.printStackTrace();}
