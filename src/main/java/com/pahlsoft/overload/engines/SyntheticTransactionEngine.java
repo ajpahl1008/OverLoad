@@ -30,8 +30,6 @@ public class SyntheticTransactionEngine implements Runnable {
         this.client = client;
         this.syntheticServiceCalled = syntheticServiceCalled;
         this.loadProperties();
-        this.loadClients();
-        this.loadTransactions();
     }
 
     private void loadProperties() throws IOException {
@@ -60,18 +58,18 @@ public class SyntheticTransactionEngine implements Runnable {
             Random randomNumber = new Random();
             Date date = new Date();
 
-            if(this.client == null) {
+            if(this.client == null || this.client.isEmpty()) {
                 this.client = this.clients.get(randomNumber.nextInt(this.clients.size()));
             }
 
-            if (this.syntheticServiceCalled == null) {
+            if (this.syntheticServiceCalled == null || this.syntheticServiceCalled.isEmpty()) {
                 this.syntheticServiceCalled = this.transactions.get(randomNumber.nextInt(this.transactions.size()));
             }
 
-            JsonObject jsonPayLoad = Json.createObjectBuilder().add("TransactionTime",(new Timestamp(date.getTime())).toString())
-                                                               .add("TransactionDuration",(randomNumber.nextInt(150)))
-                                                               .add("Client",this.client)
-                                                               .add("TransactionCalled",this.syntheticServiceCalled)
+            JsonObject jsonPayLoad = Json.createObjectBuilder().add("transaction_time",(new Timestamp(date.getTime())).toString())
+                                                               .add("transaction_duration",(randomNumber.nextInt(150)))
+                                                               .add("transaction_client",this.client)
+                                                               .add("transaction_called",this.syntheticServiceCalled)
                                                                .build();
 
             log.info(jsonPayLoad.toString());
@@ -86,22 +84,5 @@ public class SyntheticTransactionEngine implements Runnable {
 
     }
 
-    private void loadClients() {
-        this.clients.addAll(stringArrayToArrayList(this.properties.getProperty("clients").split(",")));
-    }
-
-    private void loadTransactions() {
-        this.transactions.addAll(stringArrayToArrayList(this.properties.getProperty("transactions").split(",")));
-    }
-    
-    private ArrayList<String> stringArrayToArrayList(String[] stringArray) {
-        ArrayList returnArrayList = new ArrayList();
-
-        for (int elements = 0; elements < stringArray.length; elements++) {
-            returnArrayList.add(stringArray[elements]);
-        }
-
-        return returnArrayList;
-    }
 
 }
