@@ -1,7 +1,9 @@
 package com.pahlsoft.overload.transports;
 
+import javax.json.JsonObject;
+
 public interface Transporter {
-    void sendPayLoad(Object obj);
+    void sendPayLoad(JsonObject obj);
     void flushTransporter();
 
 }

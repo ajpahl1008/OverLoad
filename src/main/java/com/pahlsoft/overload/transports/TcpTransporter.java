@@ -22,10 +22,10 @@ public class TcpTransporter implements Transporter {
         this.setupConnection();
     }
 
-    public void sendPayLoad(Object object) {
+    public void sendPayLoad(JsonObject jsonObject) {
         try {
-            JsonObject jsonObject = (JsonObject) object;
             this.dataOutputStream.write(jsonObject.toString().getBytes());
+            this.dataOutputStream.write("\n".getBytes());
             this.dataOutputStream.flush();
         } catch (IOException ioe) {
             ioe.printStackTrace();
