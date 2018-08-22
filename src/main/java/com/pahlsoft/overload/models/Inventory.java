@@ -1,0 +1,74 @@
+package com.pahlsoft.overload.models;
+
+import java.math.BigInteger;
+
+public class Inventory {
+
+   int id;
+    int loc;
+    String line_abbrev;
+    int part_number;
+    int expanded_part_number;
+    String description;
+    int store_group_id;
+    int department_id;
+    int sub_department_id;
+    String current_year_ref_class_cd;
+    String last_year_ref_class_cd;
+    int group_code;
+    String ref_unit_designator_cd;
+    int hazardous_materials_id;
+    int per_car_qty;
+    int supplier_id;
+    int standard_pkg;
+    int factory_std_pkg;
+    int sort_number;
+    int case_qty;
+    String ref_seasonal_flag_cd;
+    String last_price_change_date;
+    float lock_resale_prices;
+    float lock_cost_core_cost;
+    String reportable;
+    String tax_status_primary_ref_option_cd;
+    String tax_status_secondary_ref_option_cd;
+    String core_sales_tax_status_primary_ref_option_cd;
+    String core_sales_tax_status_secondary_ref_option_cd;
+    String core_returns_tax_status_primary_ref_option_cd;
+    String core_returns_tax_status_secondary_ref_option_cd;
+    float list;
+    float red;
+    float yellow;
+    float green;
+    float pink;
+    float master_installer;
+    float blue;
+    float core_price;
+    float cost;
+    float dvd_cost;
+    float jobber_stocked_cost;
+    float jobber_non_stocked_cost;
+    float core_cost;
+    float jobber_core_cost;
+    float store_retail_price1;
+    float store_retail_price2;
+    float store_retail_price3;
+    float average_cost;
+    int economic_order_qty;
+    int economic_order_qty_discount_percent;
+    float last_yr_cost;
+    float last_yr_core_cost;
+    float invoice_qty_min_for_discount;
+    float discount_for_large_invoices;
+    int weight_in_kilos;
+    String country_of_origin;
+    String special_product_id_code;
+    int last_updated_dvd_rev_num;
+    String last_modified_date;
+    int modified_by_employee_id;
+    String last_bin_label_print_date;
+    float _last_bin_label_print_price;
+    String post_date;
+    String extract_date;
+    BigInteger df_sequence;
+
+}

@@ -62,7 +62,7 @@ public class SyntheticTransactionEngine implements Runnable {
                 this.client = this.clients.get(randomNumber.nextInt(this.clients.size()));
             }
 
-            if (this.syntheticServiceCalled == null || this.syntheticServiceCalled.isEmpty()) {
+            if ((this.syntheticServiceCalled == null) || this.syntheticServiceCalled.isEmpty()) {
                 this.syntheticServiceCalled = this.transactions.get(randomNumber.nextInt(this.transactions.size()));
             }
 
