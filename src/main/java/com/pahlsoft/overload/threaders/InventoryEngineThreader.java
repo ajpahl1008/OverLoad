@@ -18,15 +18,15 @@ public class InventoryEngineThreader {
 
             long remainder = inventoryTotal % threadCount;
             long lastThread = inventoryTotal/threadCount + remainder;
-            InventoryEngine inventoryEngine;
 
             for (int threads = 0; threads < threadCount; threads++) {
                 if (threads == threadCount - 1 ) {
-                    inventoryEngine = new InventoryEngine(lastThread);
+                    InventoryEngine inventoryEngine = new InventoryEngine(lastThread);
+                    threadPoolExecutor.execute(inventoryEngine);
                 } else {
-                    inventoryEngine = new InventoryEngine(inventoryTotal/threadCount);
+                    InventoryEngine inventoryEngine = new InventoryEngine(inventoryTotal/threadCount);
+                    threadPoolExecutor.execute(inventoryEngine);
                 }
-                threadPoolExecutor.execute(inventoryEngine);
             }
 
             System.out.print("Waiting on Threads to Wrap Up.");
